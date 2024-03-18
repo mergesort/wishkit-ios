@@ -29,6 +29,8 @@ public struct Configuration {
 
     public var commentSection: Display = .show
 
+    public var isPullToRefreshEnabled = true
+
     init(
         statusBadgeDisplay: Display = .hide,
         localization: Localization = .default()

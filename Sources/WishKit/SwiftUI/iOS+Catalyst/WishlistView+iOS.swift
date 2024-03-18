@@ -116,7 +116,7 @@ struct WishlistViewIOS: View {
 
                 Spacer(minLength: isInTabBar ? 100 : 25)
             }
-            .refreshableCompat(action: { await wishModel.fetchList() })
+            .conditionallyApplyPullToRefresh(WishKit.config.isPullToRefreshEnabled, action: { await wishModel.fetchList() })
             .padding([.leading, .bottom, .trailing])
 
 
@@ -226,6 +226,12 @@ extension WishlistViewIOS {
 
             return PrivateTheme.systemBackgroundColor.dark
         }
+    }
+}
+
+private extension ScrollView {
+    func conditionallyApplyPullToRefresh(_ condition: Bool, action: @Sendable @escaping () async -> Void) -> some View {
+        self.refreshableCompat(action: action)
     }
 }
 #endif
